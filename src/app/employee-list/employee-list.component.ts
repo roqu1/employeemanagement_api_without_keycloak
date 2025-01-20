@@ -1,27 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable, of} from "rxjs";
-import {Employee} from "../Employee";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { Observable } from 'rxjs';
+import { Employee } from '../shared/models/employee';
+import { EmployeeService } from '../core/services/employee.service';
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
-  styleUrls: ['./employee-list.component.css']
+  styleUrls: ['./employee-list.component.css'],
 })
-export class EmployeeListComponent {
-
+export class EmployeeListComponent implements OnInit {
   employees$: Observable<Employee[]>;
 
-  constructor(private http: HttpClient) {
-    this.employees$ = of([]);
+  constructor(private employeeService: EmployeeService) {
+    this.employees$ = this.employeeService.getEmployees();
+  }
+
+  ngOnInit(): void {
     this.fetchData();
   }
 
   fetchData() {
-    this.employees$ = this.http.get<Employee[]>('/backend', {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
-    });
+    this.employees$ = this.employeeService.getEmployees();
   }
-
 }
