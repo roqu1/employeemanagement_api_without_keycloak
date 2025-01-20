@@ -1,0 +1,39 @@
+<div class="main-container">
+    <header class="logo-section">
+        <img src="assets/logo.png" alt="EFFOS Logo">
+    </header>
+
+    <div class="search-section">
+        <div class="search-container">
+            <input type="text" placeholder="Enter employee name to search..." class="search-input">
+            <button class="add-button">
+                <span class="add-icon">➕</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="employee-cards">
+        <div class="card" *ngFor="let employee of employees">
+            <div class="card-header">
+                <h3>{{employee.firstName}} {{employee.lastName}}</h3>
+                <div class="card-actions">
+                    <span class="icon action-icon">✏️</span>
+                    <span class="icon action-icon">🗑️</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <p *ngIf="employee.phone">
+                    <span class="label">Telefon:</span>
+                    <span class="value">{{employee.phone}}</span>
+                </p>
+                <p *ngIf="employee.street || employee.city || employee.postcode">
+                    <span class="label">Anschrift:</span>
+                    <span class="value">
+                        {{employee.street}}<br>
+                        {{employee.city}} {{employee.postcode}}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
