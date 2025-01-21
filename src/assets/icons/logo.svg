@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  
+  <rect x="0" y="0" width="100%" height="100%" fill="url(#logoGradient)" rx="200" ry="200"/>
+  
+  <g transform="matrix(2.5 0 0 2.5 540 540)">
+    <text 
+      xml:space="preserve" 
+      font-family="Inter, system-ui, sans-serif" 
+      font-size="185" 
+      font-weight="900" 
+      style="fill: #ffffff; letter-spacing: -0.05em;">
+      <tspan x="-140" y="42.41">E</tspan><tspan x="-20" y="42.41">M</tspan>
+    </text>
+  </g>
+
+  <rect x="4" y="4" width="calc(100% - 8px)" height="calc(100% - 8px)" 
+        fill="none" 
+        stroke="rgba(255,255,255,0.1)" 
+        stroke-width="2" 
+        rx="196" 
+        ry="196"/>
+</svg>
