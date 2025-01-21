@@ -1,13 +1,13 @@
 <div class="main-container">
     <header class="logo-section">
-        <img src="assets/logo.png" alt="EFFOS Logo">
+        <app-icon name="logo" className="logo" [width]="45" [height]="45"></app-icon>
     </header>
 
     <div class="search-section">
         <div class="search-container">
             <input type="text" placeholder="Enter employee name to search..." class="search-input">
             <button class="add-button">
-                <span class="add-icon">➕</span>
+                <app-icon name="add-employe" className="add-icon" [width]="28" [height]="28"></app-icon>
             </button>
         </div>
     </div>
@@ -17,8 +17,12 @@
             <div class="card-header">
                 <h3>{{employee.firstName}} {{employee.lastName}}</h3>
                 <div class="card-actions">
-                    <span class="icon action-icon">✏️</span>
-                    <span class="icon action-icon">🗑️</span>
+                    <button class="action-icon edit-icon" title="Edit employee">
+                        <app-icon name="pencil" [width]="20" [height]="20"></app-icon>
+                    </button>
+                    <button class="action-icon delete-icon" title="Delete employee">
+                        <app-icon name="trash" [width]="20" [height]="20"></app-icon>
+                    </button>
                 </div>
             </div>
             <div class="card-content">
