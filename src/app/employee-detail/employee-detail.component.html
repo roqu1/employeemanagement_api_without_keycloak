@@ -1,0 +1,25 @@
+<div class="main-container">
+  <header class="logo-section">
+    <app-icon name="logo" className="logo" [width]="45" [height]="45"></app-icon>
+  </header>
+
+  <div class="employee-detail-card" *ngIf="employee">
+    <div class="card-header">
+      <h3>{{ employee.firstName }} {{ employee.lastName }}</h3>
+    </div>
+    <div class="card-content">
+      <p *ngIf="employee.phone">
+        <span class="label">Telefon:</span>
+        <span class="value">{{ employee.phone }}</span>
+      </p>
+      <p *ngIf="employee.street || employee.city || employee.postcode">
+        <span class="label">Anschrift:</span>
+        <span class="value">
+          {{ employee.street }}<br />
+          {{ employee.city }} {{ employee.postcode }}
+        </span>
+      </p>
+
+    </div>
+  </div>
+</div>
