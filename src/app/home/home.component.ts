@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../shared/models/employee';
 import { EmployeeService } from '../core/services/employee.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +11,47 @@ import { EmployeeService } from '../core/services/employee.service';
 })
 export class HomeComponent implements OnInit {
   employees: Employee[] = [];
+  searchSubject: Subject<string> = new Subject();
+  isLoading: boolean = false;
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
     this.loadEmployees();
+    this.searchSubject
+      .pipe(debounceTime(500))
+      .subscribe((searchTerm) => this.searchEmployees(searchTerm));
   }
 
   loadEmployees(): void {
+    this.isLoading = true;
     this.employeeService.getEmployees().subscribe(
-      (data) => (this.employees = data),
-      (error) => console.error('Error fetching employees:', error)
+      (data) => {
+        this.employees = data;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching employees:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  onSearch(searchTerm: string): void {
+    this.searchSubject.next(searchTerm);
+  }
+
+  searchEmployees(searchTerm: string): void {
+    this.isLoading = true;
+    this.employeeService.searchEmployees(searchTerm).subscribe(
+      (data) => {
+        this.employees = data;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching employees:', error);
+        this.isLoading = false;
+      }
     );
   }
 }
