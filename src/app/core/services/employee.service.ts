@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError, map } from 'rxjs';
 import { Employee } from '../../shared/models/employee';
 
 @Injectable({
@@ -20,6 +20,19 @@ export class EmployeeService {
     return this.http
       .get<Employee[]>(this.apiUrl, this.httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  searchEmployees(searchTerm: string): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.apiUrl, this.httpOptions).pipe(
+      map((employees) =>
+        employees.filter(
+          (emp) =>
+            emp.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            emp.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      ),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: any) {

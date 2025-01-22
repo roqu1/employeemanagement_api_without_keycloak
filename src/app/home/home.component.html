@@ -5,7 +5,8 @@
 
     <div class="search-section">
         <div class="search-container">
-            <input type="text" placeholder="Enter employee name to search..." class="search-input">
+            <input #searchInput type="text" placeholder="Name eingeben..." class="search-input"
+                (input)="onSearch(searchInput.value)">
             <button class="add-button">
                 <app-icon name="add-employee" className="add-icon" [width]="28" [height]="28"></app-icon>
             </button>
@@ -13,31 +14,49 @@
     </div>
 
     <div class="employee-cards">
-        <div class="card" *ngFor="let employee of employees">
-            <div class="card-header">
-                <h3>{{employee.firstName}} {{employee.lastName}}</h3>
-                <div class="card-actions">
-                    <button class="action-icon edit-icon" title="Edit employee">
-                        <app-icon name="pencil" [width]="20" [height]="20"></app-icon>
-                    </button>
-                    <button class="action-icon delete-icon" title="Delete employee">
-                        <app-icon name="trash" [width]="20" [height]="20"></app-icon>
-                    </button>
+        <ng-container *ngIf="!isLoading; else loading">
+            <ng-container *ngIf="employees.length > 0; else noEmployees">
+                <div class="card" *ngFor="let employee of employees">
+                    <div class="card-header">
+                        <h3>{{employee.firstName}} {{employee.lastName}}</h3>
+                        <div class="card-actions">
+                            <button class="action-icon edit-icon" title="Mitarbeiter bearbeiten">
+                                <app-icon name="pencil" [width]="20" [height]="20"></app-icon>
+                            </button>
+                            <button class="action-icon delete-icon" title="Mitarbeiter löschen">
+                                <app-icon name="trash" [width]="20" [height]="20"></app-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p *ngIf="employee.phone">
+                            <span class="label">Telefon:</span>
+                            <span class="value">{{employee.phone}}</span>
+                        </p>
+                        <p *ngIf="employee.street || employee.city || employee.postcode">
+                            <span class="label">Anschrift:</span>
+                            <span class="value">
+                                {{employee.street}}<br>
+                                {{employee.city}} {{employee.postcode}}
+                            </span>
+                        </p>
+                    </div>
                 </div>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #loading>
+            <div class="loading-container">
+                <app-icon name="loading" className="loading-icon" [width]="40" [height]="40"></app-icon>
+                <p>Lade Mitarbeiter...</p>
             </div>
-            <div class="card-content">
-                <p *ngIf="employee.phone">
-                    <span class="label">Telefon:</span>
-                    <span class="value">{{employee.phone}}</span>
-                </p>
-                <p *ngIf="employee.street || employee.city || employee.postcode">
-                    <span class="label">Anschrift:</span>
-                    <span class="value">
-                        {{employee.street}}<br>
-                        {{employee.city}} {{employee.postcode}}
-                    </span>
-                </p>
+        </ng-template>
+
+        <ng-template #noEmployees>
+            <div class="no-data-message">
+                <app-icon name="info" [width]="24" [height]="24"></app-icon>
+                <p>{{ searchInput?.value ? 'Keine Mitarbeiter gefunden' : 'Keine Mitarbeiter verfügbar' }}</p>
             </div>
-        </div>
+        </ng-template>
     </div>
 </div>
