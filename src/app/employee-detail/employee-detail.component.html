@@ -3,23 +3,78 @@
     <app-icon name="logo" className="logo" [width]="45" [height]="45"></app-icon>
   </header>
 
-  <div class="employee-detail-card" *ngIf="employee">
+  <div class="employee-detail-card" *ngIf="employee && !isLoading; else loading">
     <div class="card-header">
-      <h3>{{ employee.firstName }} {{ employee.lastName }}</h3>
+      <h2 class="detail-title">Detailansicht {{employee.firstName}} {{employee.lastName}}</h2>
+      <div class="card-actions">
+        <button class="action-icon edit-icon" title="Mitarbeiter bearbeiten" (click)="toggleEditing()">
+          <app-icon name="pencil" [width]="20" [height]="20"></app-icon>
+        </button>
+        <button class="action-icon delete-icon" title="Mitarbeiter löschen">
+          <app-icon name="trash" [width]="20" [height]="20"></app-icon>
+        </button>
+      </div>
     </div>
-    <div class="card-content">
-      <p *ngIf="employee.phone">
-        <span class="label">Telefon:</span>
-        <span class="value">{{ employee.phone }}</span>
-      </p>
-      <p *ngIf="employee.street || employee.city || employee.postcode">
-        <span class="label">Anschrift:</span>
-        <span class="value">
-          {{ employee.street }}<br />
-          {{ employee.city }} {{ employee.postcode }}
-        </span>
-      </p>
 
+    <div class="card-content-wrapper">
+      <div class="card-content">
+        <div class="left-side">
+          <div class="name-container">
+            <p class="name-line" *ngIf="employee.firstName && employee.lastName">
+              <span class="label">Name:</span>
+              <span class="value name-value" *ngIf="!isEditing">{{employee.firstName}} {{employee.lastName}}</span>
+              <span  *ngIf="isEditing" class="name-input-group">
+                <input type="text" class="input-field" placeholder="Vorname" [(ngModel)]="firstNameInput">
+                <input type="text" class="input-field"  placeholder="Nachname" [(ngModel)]="lastNameInput">
+              </span>
+            </p>
+          </div>
+          <div class="phone-container">
+            <p class="phone-line" *ngIf="employee.phone">
+              <span class="label">Telefon:</span>
+              <span class="value"  *ngIf="!isEditing">{{employee.phone}}</span>
+              <input *ngIf="isEditing" type="text" class="input-field" placeholder="Telefonnummer" [(ngModel)]="phoneInput">
+            </p>
+          </div>
+        </div>
+        <div class="right-side">
+          <div class="address-container">
+            <p class="address-line" *ngIf="employee.street || employee.city || employee.postcode">
+              <span class="label">Adresse:</span>
+              <span class="value" *ngIf="!isEditing">
+                {{employee.street}}<br>
+                {{employee.city}} {{employee.postcode}}
+              </span>
+              <span  *ngIf="isEditing"  class="address-input-group">
+                <input type="text" class="input-field"  placeholder="Straße und Hausnummer" [(ngModel)]="streetInput">
+                <input type="text" class="input-field"  placeholder="Stadt"  [(ngModel)]="cityInput">
+                <input type="text" class="input-field" placeholder="PLZ" [(ngModel)]="postcodeInput">
+              </span>
+            </p>
+          </div>
+          <div class="skills-container">
+            <p class="skills-line">
+              <span class="label">Skills:</span>
+            </p>
+            <app-skill-input
+              [isEditing]="isEditing"
+              (skillsChange)="skillsChanged($event)"
+              [selectedSkillsInput]="selectedSkills"
+            ></app-skill-input>
+          </div>
+        </div>
+      </div>
+      <div class="save-button-container">
+        <div class="button-container">
+          <button class="detail-button" (click)="saveEmployee()" *ngIf="isEditing">Speichern</button>
+        </div>
+      </div>
     </div>
   </div>
+  <ng-template #loading>
+    <div class="loading-container">
+      <app-icon name="loading" className="loading-icon" [width]="40" [height]="40"></app-icon>
+      <p>Lade Daten...</p>
+    </div>
+  </ng-template>
 </div>
