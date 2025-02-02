@@ -1,0 +1,116 @@
+.skill-input-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.skill-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-item {
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.skill-item.selected {
+  background-color: var(--primary);
+  color: #bd4343;
+}
+
+.skill-item:hover {
+  background-color: #bdbdbd;
+  color: black;
+}
+
+.remove-skill {
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  padding: 0;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.add-button {
+  font-size: 1.2rem;
+  padding: 0.3rem 0.75rem;
+}
+
+.skill-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-add-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skill-add-section .skill-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.skill-add-section .skill-input .input-field {
+  flex: 1;
+  margin: 0;
+}
+
+.cancel-button {
+  font-size: 1.2rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--muted);
+}
+
+.delete-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.input-field,
+.skill-add-section .skill-input .input-field,
+select {
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  background: transparent;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.input-field:focus,
+select:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-button {
+  border: none;
+  border-radius: var(--radius);
+  background: #333;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

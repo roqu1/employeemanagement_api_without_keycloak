@@ -1,0 +1,40 @@
+<div class="skill-input-container" *ngIf="!isLoading; else loading">
+  <ul *ngIf="!isEditing; else editMode">
+    <li *ngFor="let skill of selectedSkills">
+      {{skill.skill}}
+    </li>
+    <li *ngIf="selectedSkills.length === 0">Keine Skills</li>
+  </ul>
+  <ng-template #editMode>
+    <ul class="skill-list"  *ngIf="!isAdding">
+      <li *ngFor="let skill of selectedSkills"
+          [class.selected]="isSelected(skill)"
+          class="skill-item">
+        {{ skill.skill }}
+        <button class="remove-skill" *ngIf="isEditing" (click)="removeSkill(skill); $event.stopPropagation()">X</button>
+      </li>
+    </ul>
+    <button *ngIf="!isAdding" class="detail-button add-button" (click)="toggleAddMode()">+</button>
+    <div class="skill-add-section"  *ngIf="isAdding">
+      <div class="skill-input">
+        <input type="text" class="input-field" placeholder="Neuer Skill" [(ngModel)]="newSkill">
+        <button class="detail-button" (click)="addSkill(newSkill)">Hinzufügen</button>
+      </div>
+      <div class="skill-select">
+        <select class="input-field" [(ngModel)]="selectedSkillId">
+          <option [ngValue]="null">Skill Auswählen</option>
+          <option *ngFor="let skill of allQualifications" [ngValue]="skill.id">{{skill.skill}}</option>
+        </select>
+        <button class="detail-button" (click)="addSelectedSkill()">Hinzufügen</button>
+        <button class="detail-button delete-button" (click)="deleteSelectedQualification()" [disabled]="!selectedSkillId">Löschen</button>
+      </div>
+      <button class="detail-button cancel-button" (click)="toggleAddMode()">X</button>
+    </div>
+  </ng-template>
+</div>
+<ng-template #loading>
+  <div class="loading-container">
+    <app-icon name="loading" className="loading-icon" [width]="20" [height]="20"></app-icon>
+    <p>Lade Skills...</p>
+  </div>
+</ng-template>
