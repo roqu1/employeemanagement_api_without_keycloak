@@ -5,6 +5,12 @@ export class Employee {
               public street?: string,
               public postcode?: string,
               public city?: string,
-              public phone?: string) {
+              public phone?: string,
+              public skillSet?: Qualification[]) {
   }
+}
+
+export interface Qualification {
+  id?: number;
+  skill?: string;
 }

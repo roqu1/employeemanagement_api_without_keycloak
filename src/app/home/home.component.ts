@@ -3,6 +3,7 @@ import { Employee } from '../shared/models/employee';
 import { EmployeeService } from '../core/services/employee.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomeComponent implements OnInit {
   searchSubject: Subject<string> = new Subject();
   isLoading: boolean = false;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.loadEmployees();
@@ -53,5 +55,13 @@ export class HomeComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  goToEmployeeDetail(employeeId: number | undefined) {
+    if (employeeId !== undefined) {
+      this.router.navigate(['/employee', employeeId]);
+    } else {
+      console.error("Employee ID is undefined")
+    }
   }
 }
