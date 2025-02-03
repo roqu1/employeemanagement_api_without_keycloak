@@ -221,6 +221,24 @@
   display: inline;
 }
 
+.no-data-message .detail-button {
+  border: none;
+  border-radius: var(--radius);
+  background: #333;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.no-data-message .detail-button:hover {
+  background-color: #555;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 @media (max-width: 768px) {
   .card-content{
     flex-direction: column;

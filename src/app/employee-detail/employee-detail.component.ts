@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee, Qualification } from '../shared/models/employee';
 import { EmployeeService } from '../core/services/employee.service';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { forkJoin, Observable } from "rxjs";
 
 @Component({
@@ -13,6 +13,7 @@ export class EmployeeDetailComponent implements OnInit {
   employee: Employee | undefined;
   employeeId: number = 0;
   isEditing: boolean = false;
+  employeeNotFoundError: boolean = false;
 
   firstNameInput: string = '';
   lastNameInput: string = '';
@@ -26,7 +27,8 @@ export class EmployeeDetailComponent implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -49,12 +51,12 @@ export class EmployeeDetailComponent implements OnInit {
           this.postcodeInput = employee.postcode || '';
           this.phoneInput = employee.phone || '';
           this.selectedSkills = (this.employee?.skillSet || []).map(skill => ({id: skill.id, skill: skill.skill}))
-          console.log("Loaded skills:", this.selectedSkills);
         }
         this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching employee:', error);
+        this.employeeNotFoundError = true;
         this.isLoading = false;
       }
     );
@@ -124,7 +126,6 @@ export class EmployeeDetailComponent implements OnInit {
 
         const addObservables = this.selectedSkills.map(skill => {
           if (skill.id && !currentSkillIds.includes(skill.id) && skill.skill) {
-            console.log("Add skill:", skill);
             return this.employeeService.addQualificationToEmployee(this.employeeId, skill.skill);
           }
           return null;
@@ -132,7 +133,6 @@ export class EmployeeDetailComponent implements OnInit {
 
         const removeObservables = skillsToRemove.map(skill => {
           if (skill.id) {
-            console.log("Remove skill:", skill);
             return this.employeeService.deleteQualificationFromEmployee(this.employeeId, skill.id);
           }
           return null;
@@ -157,5 +157,9 @@ export class EmployeeDetailComponent implements OnInit {
 
   skillsChanged(skills: Qualification[]) {
     this.selectedSkills = skills;
+  }
+
+  goToHomePage() {
+    this.router.navigate(['/home']);
   }
 }
