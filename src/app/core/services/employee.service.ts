@@ -10,7 +10,6 @@ import {environment} from "../../../environments/environment";
 })
 export class EmployeeService {
   private apiUrl = '/backend';
-  private baseUrl = environment.apiUrl;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -21,30 +20,30 @@ export class EmployeeService {
 
   getEmployees(): Observable<Employee[]> {
     return this.http
-      .get<Employee[]>(this.apiUrl, this.httpOptions)
+      .get<Employee[]>(`${this.apiUrl}/employees`, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   getEmployee(id: number): Observable<Employee> {
     return this.http
-      .get<Employee>(`${this.apiUrl}/${id}`, this.httpOptions)
+      .get<Employee>(`${this.apiUrl}/employees/${id}`, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   updateEmployee(employee: Employee): Observable<Employee> {
     return this.http
-      .put<Employee>(`${this.baseUrl}/employees/${employee.id}`, employee, this.httpOptions)
+      .put<Employee>(`${this.apiUrl}/employees/${employee.id}`, employee, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   getEmployeeQualifications(id: number): Observable<Qualification[] | null> {
     return this.http
-      .get<Qualification[] | null>(`${this.baseUrl}/employees/${id}/qualifications`, this.httpOptions)
+      .get<Qualification[] | null>(`${this.apiUrl}/employees/${id}/qualifications`, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   searchEmployees(searchTerm: string): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.apiUrl, this.httpOptions).pipe(
+    return this.http.get<Employee[]>(`${this.apiUrl}/employees`, this.httpOptions).pipe(
       map((employees) =>
         employees.filter(
           (emp) =>
@@ -57,27 +56,27 @@ export class EmployeeService {
   }
 
   getAllQualifications(): Observable<Qualification[]> {
-    return this.http.get<Qualification[]>(`${this.baseUrl}/qualifications`, this.httpOptions)
+    return this.http.get<Qualification[]>(`${this.apiUrl}/qualifications`, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   addQualification(skill: string): Observable<Qualification> {
-    return this.http.post<Qualification>(`${this.baseUrl}/qualifications`, {skill: skill}, this.httpOptions)
+    return this.http.post<Qualification>(`${this.apiUrl}/qualifications`, {skill: skill}, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   deleteQualification(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/qualifications/${id}`, this.httpOptions)
+    return this.http.delete(`${this.apiUrl}/qualifications/${id}`, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   addQualificationToEmployee(employeeId: number, skill: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/employees/${employeeId}/qualifications`, { skill }, this.httpOptions)
+    return this.http.post(`${this.apiUrl}/employees/${employeeId}/qualifications`, { skill }, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   deleteQualificationFromEmployee(employeeId: number, qualificationId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/employees/${employeeId}/qualifications/${qualificationId}`, this.httpOptions)
+    return this.http.delete(`${this.apiUrl}/employees/${employeeId}/qualifications/${qualificationId}`, this.httpOptions)
       .pipe(catchError(this.handleError))
   }
 

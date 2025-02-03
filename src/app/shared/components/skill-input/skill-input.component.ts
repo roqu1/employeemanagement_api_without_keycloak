@@ -44,7 +44,6 @@ export class SkillInputComponent implements OnInit, OnChanges {
         if (this.selectedSkillsInput) {
           this.selectedSkills = [...this.selectedSkillsInput]
         }
-        console.log("All qualifications:", this.allQualifications)
       },
       (error: any) => {
         console.error('Error fetching qualifications:', error);
