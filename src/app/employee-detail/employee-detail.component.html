@@ -1,7 +1,5 @@
 <div class="main-container">
-  <header class="logo-section">
-    <app-icon name="logo" className="logo" [width]="45" [height]="45"></app-icon>
-  </header>
+  <app-header></app-header>
   <ng-container *ngIf="!employeeNotFoundError; else notFound">
     <div class="employee-detail-card" *ngIf="employee && !isLoading; else loading">
       <div class="card-header">
@@ -23,17 +21,18 @@
               <p class="name-line" *ngIf="employee.firstName && employee.lastName">
                 <span class="label">Name:</span>
                 <span class="value name-value" *ngIf="!isEditing">{{employee.firstName}} {{employee.lastName}}</span>
-                <span  *ngIf="isEditing" class="name-input-group">
-                <input type="text" class="input-field" placeholder="Vorname" [(ngModel)]="firstNameInput">
-                <input type="text" class="input-field"  placeholder="Nachname" [(ngModel)]="lastNameInput">
-              </span>
+                <span *ngIf="isEditing" class="name-input-group">
+                  <input type="text" class="input-field" placeholder="Vorname" [(ngModel)]="firstNameInput">
+                  <input type="text" class="input-field" placeholder="Nachname" [(ngModel)]="lastNameInput">
+                </span>
               </p>
             </div>
             <div class="phone-container">
               <p class="phone-line" *ngIf="employee.phone">
                 <span class="label">Telefon:</span>
-                <span class="value"  *ngIf="!isEditing">{{employee.phone}}</span>
-                <input *ngIf="isEditing" type="text" class="input-field" placeholder="Telefonnummer" [(ngModel)]="phoneInput">
+                <span class="value" *ngIf="!isEditing">{{employee.phone}}</span>
+                <input *ngIf="isEditing" type="text" class="input-field" placeholder="Telefonnummer"
+                  [(ngModel)]="phoneInput">
               </p>
             </div>
           </div>
@@ -42,25 +41,22 @@
               <p class="address-line" *ngIf="employee.street || employee.city || employee.postcode">
                 <span class="label">Adresse:</span>
                 <span class="value" *ngIf="!isEditing">
-                {{employee.street}}<br>
+                  {{employee.street}}<br>
                   {{employee.city}} {{employee.postcode}}
-              </span>
-                <span  *ngIf="isEditing"  class="address-input-group">
-                <input type="text" class="input-field"  placeholder="Straße und Hausnummer" [(ngModel)]="streetInput">
-                <input type="text" class="input-field"  placeholder="Stadt"  [(ngModel)]="cityInput">
-                <input type="text" class="input-field" placeholder="PLZ" [(ngModel)]="postcodeInput">
-              </span>
+                </span>
+                <span *ngIf="isEditing" class="address-input-group">
+                  <input type="text" class="input-field" placeholder="Straße und Hausnummer" [(ngModel)]="streetInput">
+                  <input type="text" class="input-field" placeholder="Stadt" [(ngModel)]="cityInput">
+                  <input type="text" class="input-field" placeholder="PLZ" [(ngModel)]="postcodeInput">
+                </span>
               </p>
             </div>
             <div class="skills-container">
               <p class="skills-line">
                 <span class="label">Skills:</span>
               </p>
-              <app-skill-input
-                [isEditing]="isEditing"
-                (skillsChange)="skillsChanged($event)"
-                [selectedSkillsInput]="selectedSkills"
-              ></app-skill-input>
+              <app-skill-input [isEditing]="isEditing" (skillsChange)="skillsChanged($event)"
+                [selectedSkillsInput]="selectedSkills"></app-skill-input>
             </div>
           </div>
         </div>
