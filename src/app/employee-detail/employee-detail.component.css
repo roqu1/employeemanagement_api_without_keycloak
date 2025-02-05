@@ -5,19 +5,6 @@
   background-color: var(--background);
 }
 
-.logo-section {
-  margin-bottom: 2rem;
-}
-
-.logo-section app-icon {
-  transition: all 0.3s ease;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-}
-
-.logo-section app-icon:hover {
-  transform: scale(1.05);
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
-}
 
 .employee-detail-card {
   background-color: var(--card);

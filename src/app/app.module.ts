@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { IconComponent } from './shared/components/icon/icon.component';
 import { SkillInputComponent } from './shared/components/skill-input/skill-input.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SkillInputComponent } from './shared/components/skill-input/skill-input
     EmployeeDetailComponent,
     HomeComponent,
     SkillInputComponent,
+    HeaderComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [],

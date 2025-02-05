@@ -1,0 +1,18 @@
+.logo-section {
+    margin-bottom: 2rem;
+}
+
+.logo-wrapper {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.logo-wrapper app-icon {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.logo-wrapper:hover app-icon {
+    transform: scale(1.05);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
+}

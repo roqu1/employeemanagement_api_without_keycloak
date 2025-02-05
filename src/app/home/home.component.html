@@ -1,8 +1,5 @@
 <div class="main-container">
-    <header class="logo-section">
-        <app-icon name="logo" className="logo" [width]="45" [height]="45"></app-icon>
-    </header>
-
+    <app-header></app-header>
     <div class="search-section">
         <div class="search-container">
             <input #searchInput type="text" placeholder="Name eingeben..." class="search-input"
@@ -18,7 +15,8 @@
             <ng-container *ngIf="employees.length > 0; else noEmployees">
                 <div class="card" *ngFor="let employee of employees">
                     <div class="card-header">
-                      <h3 class="employee-name" (click)="goToEmployeeDetail(employee.id)" style="cursor: pointer">{{employee.firstName}} {{employee.lastName}}</h3>
+                        <h3 class="employee-name" (click)="goToEmployeeDetail(employee.id)" style="cursor: pointer">
+                            {{employee.firstName}} {{employee.lastName}}</h3>
                         <div class="card-actions">
                             <button class="action-icon edit-icon" title="Mitarbeiter bearbeiten">
                                 <app-icon name="pencil" [width]="20" [height]="20"></app-icon>
